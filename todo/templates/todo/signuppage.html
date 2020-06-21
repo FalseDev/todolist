@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>SignUp</title>
+	<head>
+
+	<body>
+		{% if error %}<b>{{ error }}</b>{% endif %}
+		<form name="signup" id="signup" action="{% url 'todo:signup' %}" method="post">
+		{% csrf_token %}
+		<label for='username'>Username:</label>
+		<input type='text' name='username' id='username'><br>
+		<label for='password'>Password:</label>
+		<input type='password' name='password' id='password'><br>
+		<label for='passconfirm'>Confirm Password</label>
+		<input type='password' name='passconfirm' id='passconfirm'><br>
+		<button type='button' onclick='jssubmit()'>Submit</button>
+		</form>
+		<script>
+			form = document.getElementById("signup");
+			userfield = document.getElementById("username");
+			pass1field = document.getElementById("password");
+			pass2field = document.getElementById("passconfirm");
+			function jssubmit(){
+				userlenstat = (userfield.value.length > 5);
+				passlenstat = (pass1field.value.length > 7);
+				passpass = (pass1field.value == pass2field.value);
+				if (passpass){
+					if(userlenstat){
+						if (passlenstat){
+							form.submit();
+						}
+						else{
+							alert("Password too short");
+						};
+					}
+					else{
+						alert("Username too short");
+					};
+				}
+				else{
+					alert("Passwords Don't Match");
+				};
+			};
+		</script>
+	</body>
+
+</html>

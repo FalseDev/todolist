@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>Login</title>		
+	</head>
+	<body>
+		<b>Don't have an account? <a href="{% url 'todo:signup' %}">SignUp</a></b><br>
+		{% if error_message %}{{ error_message }}{% endif %}
+		<form action='{% url 'todo:login' %}' method='post'>
+			{% csrf_token %}
+			<input type='text' id='username' name='username'>
+			<label for 'username'>Username:</label><br>
+			<input type='password' id='password' name='password'>
+			<label for='password'>Password:</label><br>
+			<input type='submit'>
+		</form>
+	</body>
+</html>

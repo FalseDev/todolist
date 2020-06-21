@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<title>To Do List</title>
+		<style>
+			#hidden {visibility:hidden;}
+			#visible {
+				position:fixed;
+				visibility:visible;
+				width:80%;
+				height:80%;
+				background-color:White;
+			}
+		</style>
+	</head>
+	<body>
+
+		<table>
+			<tbody>
+				<tr>
+					<td><a href="/logout">Logout</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table border='1px'><tbody><tr>
+			<td width='200px' height='100%' onclick='add()'>
+				<div color='white' onclick='add()' width='100%' height='100%'>Add</div>
+			</td>
+		{% for item in todoItems %}
+			<script>
+				fcl = {{ forloop.counter }};
+				if (fcl %4 == 0){
+					document.write("<tr width='100%'>");
+				};
+			</script>
+	                <td><table border='1px' width='200px' id='todo{{ item.pk }}' height='200px' style="background-color:{{ item.get_Colour_display }}">
+	                        <tbody>
+	                                <tr>
+	                                        <td rowspan='2' height='20%'>{{ item.Name }}</td>
+	                                        <td height='10%' width='50%'>{{ item.create_date.date }}</td>
+	                                </tr>
+
+	                                <tr>
+	                                        <td height='10%' width='50%'>{{ item.create_date.time }}</td>
+	                                </tr>
+
+	                                <tr>
+	                                        <td colspan='2' height='70%'>{{ item.Text }}</td>
+	                                </tr>
+
+	                                <tr>
+	                                        <td height='10%'>{{ item.get_Priority_display }}</td>
+	                                        <td height='10%'><button onclick="window.location='/delete/{{ item.pk }}/'">Delete</button>
+	                                        <button onclick="window.location='/edit/{{ item.pk }}/nam/des/RED/HI'">Edit</button></td>
+	                                </tr>
+	                        </tbody>
+	                </table></td>
+                        <script>
+				fcl = {{ forloop.counter }};
+                                if (fcl %4 == 3){ 
+                                        document.write("</tr>");
+                                };
+                        </script>
+		{% endfor %}
+		</tbody></table>
+                <script>
+			var text_cols = { 'black':'white' , 
+					  'white':'black' ,
+					  'yellow':'black',
+					  'blue':'red'};
+                        todos = document.getElementsByTagName('table');
+                        for (var todo_id = 0 ;todo_id < todos.length; todo_id++ ){
+				todo = todos[todo_id];
+				bgcolour = todo.style.backgroundColor;
+				var text_col = text_cols[bgcolour];
+				todo.style.color = text_col;
+                        }
+                </script>
+
+		<div name='addform'>
+			
+				<label for='name'>ToDo Title:</label>
+				<input type='text' id='name' max='20' name='name'><br>
+				<label for='text'>ToDo Description:</label>
+				<input type='text' id='text' max='400' name='text'><br>
+				<label for='color'>Color:</label>
+				<select name='color' id='color'>
+				{% for color in todoItem.Colours %}
+					<option value='{{ color }}'>{{ color.label }}</option>
+				{% endfor %}
+				</select><br>
+				<label for='priority'>Priority:</label>
+				<select id='priority' name='priority'>
+				{% for opt in todoItem_prior %}
+					<option value='{{ opt }}'>{{ opt.label }}</option>
+				{% endfor %}
+				</select><br>
+
+				<button type='button' onclick='submit()'>ADD</button>
+			
+		</div>
+
+		<script>
+			addform = document.getElementsByName('addform')[0];
+			addform.id = 'hidden';
+			function add(){
+				addform.id = 'visible';
+			};
+
+			function submit(){
+				nameField = document.getElementById('name');
+				textField = document.getElementById('text');
+				colorField = document.getElementById('color');
+				priorField = document.getElementById('priority');
+				window.location = ('/add/' + nameField.value + '/' + textField.value + '/' + colorField.value + '/' + priorField.value + '/');
+				
+			}
+		</script>
+	</body>
+</html>

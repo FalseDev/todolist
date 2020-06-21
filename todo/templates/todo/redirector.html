@@ -1,0 +1,7 @@
+<form method='post' action='/' id='redirector'>
+{% csrf_token %}
+{% if error %}<input type='hidden' name='error' value="{{ error }}" id='error'>{% endif %}
+</form>
+<script>
+document.getElementById('redirector').submit()
+</script>
