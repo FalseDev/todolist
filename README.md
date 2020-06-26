@@ -14,5 +14,9 @@ To run it locally on your system make sure all requirements are met:
 * [x] Fix user duplication bug
 * [ ] Improve UI
 * [ ] Create header menu
+* [ ] Create proper UI for login and signin
+* [ ] Add new fields to user database
+* [ ] Improve JS for form verification
+* [ ] Add more CSS
 
 The online running version of this app can be viewed [here](https://FalseDev.pythonanywhere.com "ToDoList site")

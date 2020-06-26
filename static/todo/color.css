@@ -1,0 +1,52 @@
+
+.brown , .brown button {
+  background-color: #3C0F12;
+  color: burlywood;
+}
+
+.red , .red button {
+  background-color: #840B0B;
+  color: #FFFFFF;
+}
+
+.blue , .blue button {
+	background-color: #011936;
+	color: #9BC7FD;
+}
+
+.purple , .purple button {
+	background-color: #270722;
+	color: #EBF4FF;
+}
+
+.violet , .violet button {
+	background-color: #45364B;
+	color: #EBF4FF;
+	
+}
+
+.black , .black button {
+	background-color: #000000;
+	color: #B3B3B3;
+}
+
+.green , .green button {
+	background-color: #1E4833;
+	color: #FFFFFF;
+}
+
+.white , .white button {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.orange , .orange button {
+	background-color: #BD320F;
+	color: #FFFFFF;
+}
+
+.yellow , .yellow button {
+	background-color: #E98A15;
+	color: #000000;
+
+}

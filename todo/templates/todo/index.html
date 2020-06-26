@@ -1,56 +1,48 @@
 <html>
 	<head>
 		<title>To Do List</title>
-		<style>
-			#hidden {visibility:hidden;}
-			#visible {
-				position:fixed;
-				visibility:visible;
-				width:80%;
-				height:80%;
-				background-color:White;
-			}
-		</style>
 	</head>
-	<body>
+	<link href='/static/todo/index.css' type='text/css' rel='stylesheet'>
+	<link href='/static/todo/color.css' type='text/css' rel='stylesheet'>
+	<body class='darkbody'>
 
-		<table>
-			<tbody>
-				<tr>
-					<td><a href="/logout">Logout</a></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class='header'><a id='logout' href="/logout">Logout</a></div>
 
-		<table border='1px'><tbody><tr>
-			<td width='200px' height='100%' onclick='add()'>
-				<div color='white' onclick='add()' width='100%' height='100%'>Add</div>
+		<table id='parenttable'><tbody><tr>
+			<td id='addtd' onclick='add()'>
+				<svg id='addsvg' width="202" height="202" viewBox="0 0 202 202" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M79.5714 179.571V146.579C79.5714 138.036 79.5714 133.765 77.8826 130.514C76.4595 127.774 74.2257 125.541 71.4861 124.117C68.235 122.429 63.9638 122.429 55.4214 122.429H22.4286C16.4438 122.429 13.4514 122.429 11.0458 121.587C6.73711 120.079 3.34943 116.691 1.84175 112.383C1 109.977 1 106.985 1 101C1 95.0152 1 92.0228 1.84175 89.6172C3.34943 85.3085 6.73711 81.9209 11.0458 80.4132C13.4514 79.5714 16.4438 79.5714 22.4286 79.5714H55.4214C63.9638 79.5714 68.235 79.5714 71.4861 77.8826C74.2257 76.4595 76.4595 74.2257 77.8826 71.4861C79.5714 68.235 79.5714 63.9638 79.5714 55.4214V22.4286C79.5714 16.4438 79.5714 13.4514 80.4132 11.0458C81.9209 6.73711 85.3085 3.34943 89.6172 1.84175C92.0228 1 95.0152 1 101 1C106.985 1 109.977 1 112.383 1.84175C116.691 3.34943 120.079 6.73711 121.587 11.0458C122.429 13.4514 122.429 16.4438 122.429 22.4286V55.4214C122.429 63.9638 122.429 68.235 124.117 71.4861C125.541 74.2257 127.774 76.4595 130.514 77.8826C133.765 79.5714 138.036 79.5714 146.579 79.5714H163.346H179.571C185.556 79.5714 188.549 79.5714 190.954 80.4132C195.263 81.9209 198.651 85.3085 200.158 89.6172C201 92.0228 201 95.0152 201 101C201 106.985 201 109.977 200.158 112.383C198.651 116.691 195.263 120.079 190.954 121.587C188.549 122.429 185.556 122.429 179.571 122.429H163.346H146.579C138.036 122.429 133.765 122.429 130.514 124.117C127.774 125.541 125.541 127.774 124.117 130.514C122.429 133.765 122.429 138.036 122.429 146.579V179.571C122.429 185.556 122.429 188.549 121.587 190.954C120.079 195.263 116.691 198.651 112.383 200.158C109.977 201 106.985 201 101 201C95.0152 201 92.0228 201 89.6172 200.158C85.3085 198.651 81.9209 195.263 80.4132 190.954C79.5714 188.549 79.5714 185.556 79.5714 179.571Z" id='addsvgpath'/>
+				</svg>
 			</td>
 		{% for item in todoItems %}
 			<script>
 				fcl = {{ forloop.counter }};
 				if (fcl %4 == 0){
-					document.write("<tr width='100%'>");
+					document.write("<tr>");
 				};
 			</script>
-	                <td><table border='1px' width='200px' id='todo{{ item.pk }}' height='200px' style="background-color:{{ item.get_Colour_display }}">
+	                <td><table id='todo{{ item.pk }}' class='todoitem {{ item.get_Colour_display }}' onclick='enlarge({{ item.pk }})'>
 	                        <tbody>
 	                                <tr>
-	                                        <td rowspan='2' height='20%'>{{ item.Name }}</td>
-	                                        <td height='10%' width='50%'>{{ item.create_date.date }}</td>
+	                                        <td rowspan='2' height='20%' class='todotitle'>{{ item.Name|truncatechars:20 }}</td>
+	                                        <td height='10%' width='50%' class='date'>{{ item.create_date.date }}
+        	                                <div class='fulltitle'>{{ item.Name }}</div>
+	                                        <div class='fulldisc'>{{ item.Text }}</div>
+	                                        </td>
 	                                </tr>
 
 	                                <tr>
-	                                        <td height='10%' width='50%'>{{ item.create_date.time }}</td>
+	                                        <td height='10%' width='50%' class='date'>{{ item.create_date.time }}</td>
 	                                </tr>
 
 	                                <tr>
-	                                        <td colspan='2' height='70%'>{{ item.Text }}</td>
+	                                        <td colspan='2' height='70%' class='tododisc'>{{ item.Text|truncatechars:200 }}</td>
 	                                </tr>
 
-	                                <tr>
-	                                        <td height='10%'>{{ item.get_Priority_display }}</td>
-	                                        <td height='10%'><button onclick="window.location='/delete/{{ item.pk }}/'">Delete</button>
+	                                <tr class='bottomtr'>
+	                                        <td height='10%' class='priority'>{{ item.get_Priority_display }}</td>
+	                                        <td height='10%' class='bottomtd'>
+											<button onclick="window.location='/delete/{{ item.pk }}/'">Delete</button>
 	                                        <button onclick="showedit({{ item.pk }})">Edit</button></td>
 	                                </tr>
 	                        </tbody>
@@ -63,33 +55,20 @@
                         </script>
 		{% endfor %}
 		</tbody></table>
-                <script>
-			var text_cols = { 'black':'white' , 
-					  'white':'black' ,
-					  'yellow':'black',
-					  'blue':'red'};
-                        todos = document.getElementsByTagName('table');
-                        for (var todo_id = 0 ;todo_id < todos.length; todo_id++ ){
-				todo = todos[todo_id];
-				bgcolour = todo.style.backgroundColor;
-				var text_col = text_cols[bgcolour];
-				todo.style.color = text_col;
-                        }
-                </script>
 
-		<div name='addform'>
-			
-				<label for='name'>ToDo Title:</label>
+		<div name='addform' id='hidden' class='form'>
+			<div class='in-form'>
+				<label for='name'>ToDo Title:</label><br>
 				<input type='text' id='name' max='20' name='name'><br>
-				<label for='text'>ToDo Description:</label>
-				<input type='text' id='text' max='400' name='text'><br>
-				<label for='color'>Color:</label>
+				<label for='text'>ToDo Description:</label><br>
+				<textarea id='text' max='400' name='text'></textarea><br>
+				<label for='color'>Color:</label><br>
 				<select name='color' id='color'>
 				{% for color in todoItem.Colours %}
 					<option value='{{ color }}'>{{ color.label }}</option>
 				{% endfor %}
 				</select><br>
-				<label for='priority'>Priority:</label>
+				<label for='priority'>Priority:</label><br>
 				<select id='priority' name='priority'>
 				{% for opt in todoItem_prior %}
 					<option value='{{ opt }}'>{{ opt.label }}</option>
@@ -97,21 +76,21 @@
 				</select><br>
 
 				<button type='button' onclick='submit()'>ADD</button>
-			
+			</div>
 		</div>
-		<div name='editform'>
-			
-				<label for='nameedit'>ToDo Title:</label>
+		<div name='editform' id='hidden' class='form'>
+			<div class='in-form'>
+				<label for='nameedit'>ToDo Title:</label><br>
 				<input type='text' id='nameedit' max='20' name='nameedit' ><br>
-				<label for='textedit'>ToDo Description:</label>
-				<input type='text' id='textedit' max='400' name='textedit'><br>
-				<label for='coloredit'>Color:</label>
+				<label for='textedit'>ToDo Description:</label><br>
+				<textarea id='textedit' max='400' name='textedit'></textarea><br>
+				<label for='coloredit'>Color:</label><br>
 				<select name='coloredit' id='coloredit'>
 				{% for color in todoItem.Colours %}
 					<option value='{{ color }}'>{{ color.label }}</option>
 				{% endfor %}
 				</select><br>
-				<label for='priorityedit'>Priority:</label>
+				<label for='priorityedit'>Priority:</label><br>
 				<select id='priorityedit' name='priority'>
 				{% for opt in todoItem_prior %}
 					<option value='{{ opt }}'>{{ opt.label }}</option>
@@ -119,41 +98,9 @@
 				</select><br>
 
 				<button type='button' onclick='edit()'>EDIT</button>
-			
+			</div>
 		</div>
-		<script>
-			editform = document.getElementsByName('editform')[0];
-			editform.id = 'hidden';
-			function showedit(q_id_inp){
-				editform.id = 'visible';
-				q_id = q_id_inp
-			};
-
-			function edit(){
-				nameField = document.getElementById('nameedit');
-				textField = document.getElementById('textedit');
-				colorField = document.getElementById('coloredit');
-				priorField = document.getElementById('priorityedit');
-				window.location = ('/edit/' + q_id + '/' + nameField.value + '/' + textField.value + '/' + colorField.value + '/' + priorField.value + '/');
-				
-			}
-		</script>
-		<script>
-			addform = document.getElementsByName('addform')[0];
-			addform.id = 'hidden';
-			function add(){
-				addform.id = 'visible';
-			};
-
-			function submit(){
-				nameField = document.getElementById('name');
-				textField = document.getElementById('text');
-				colorField = document.getElementById('color');
-				priorField = document.getElementById('priority');
-				window.location = ('/add/' + nameField.value + '/' + textField.value + '/' + colorField.value + '/' + priorField.value + '/');
-				
-			}
-		</script>
-
+		<script defer type='text/javascript' src='/static/todo/form_validators.js'></script>
+		<script defer type='text/javascript' src='/static/todo/enlarge.js'></script>
 	</body>
 </html>

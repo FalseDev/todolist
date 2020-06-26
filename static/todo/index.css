@@ -1,0 +1,144 @@
+#hidden {
+	visibility:hidden;
+	position:absolute;
+}
+
+#visible {
+	position:fixed;
+	top:20%;
+	left:30%;
+	visibility:visible;
+	width:40%;
+	height:60%;
+	border-radius:50px;
+}
+
+
+.todoitem{
+	width: 300px;
+	height: 300px;
+	border-radius: 45px;
+	padding-left: 15px;
+	padding-right: 15px;
+	transition:0s;
+	text-align:justify;
+	text-justify:inter-word;
+}
+
+.todoitem:hover{
+	transform:scale(1.05);
+	box-shadow: 2px 2px 2px #000;
+	z-index:1;
+}
+
+button{
+	border: 0px;
+	width: max-content;
+}
+
+.darkbody{
+	background-color: #272822; 
+}
+
+.priority{
+	text-align: center;
+}
+
+.bottomtr{
+	white-space: nowrap;
+}
+
+.date {
+	text-align: right;
+	padding-right:20px;
+	padding-top:10px;
+}
+body{
+	width:100vh;
+}
+.todotitle{
+	text-align: center;
+	padding-right: 20px;
+}
+
+.parenttable{
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.enlarge{
+	position: fixed;
+	top:10%;
+	left:10%;
+	width:80%;
+	height:80%;
+	z-index:0;
+	transition:width 0.1s ease,height 0.1s ease;
+}
+
+.fulltitle , .fulldisc {
+	visibility: hidden;
+	position: absolute;
+}
+
+.form{
+	background-color:#110856;
+	text-align:center;
+}
+
+.form input , .form textarea , .form select {
+	background-color:#a2069e;
+	border:0px;
+	width:30%;
+	text-align:center;
+}
+
+.form textarea , .form input , .form select , .form button {
+	border-radius:10px;
+}
+
+#addsvg{
+	animation: fill 2.5s ease forwards 0s;
+	border:0px;
+}
+
+#addtd{
+	text-align:center;
+	background-color: #808080;
+	border-radius:45px;
+}
+
+.form button{
+	background-color:#48a548;
+	margin-top:10px;
+	height:5%;
+	width:20%;
+}
+
+.form label{
+	color:#9bc7fd;
+}
+.header{
+	position:sticky;
+	width:100vh;
+	height:50px;
+}
+
+#logout{
+	color:white;
+}
+
+.bottomtd{
+	text-align:center;
+}
+
+@keyframes fill{
+	from{
+		fill: transparent;
+	}
+
+	to{
+		fill: white;
+	}
+}

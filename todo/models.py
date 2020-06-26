@@ -15,7 +15,6 @@ class todoItem(models.Model):
     class Colours(models.TextChoices):
         WHITE = 'WHT' , ('White')
         BLACK = 'BLK' , ('Black')
-        GREY = 'GRY' , ('Grey')
         RED = 'RED' , ('Red')
         GREEN = 'GRN' , ('Green')
         BLUE = 'BLE' , ('Blue')
@@ -24,6 +23,7 @@ class todoItem(models.Model):
         PURPLE = 'PRL' , ('Purple')
         ORANGE = 'ORN' , ('Orange')
         BROWN = 'BRN' , ('Brown')
+
     owner = models.ForeignKey("todouser" , on_delete=models.CASCADE)
     todo_name = models.CharField(max_length=20 , name='Name')
     todo_text = models.CharField(max_length=400 , name='Text')
@@ -48,6 +48,7 @@ class todoItem(models.Model):
 class todouser(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=78)
+#    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.username
